@@ -11,7 +11,11 @@ Remove #include "heaplib.h" if it exists. Make sure to have:
 ~~~~
 #include "MallocVisualizer-Bridging-Header.h"
 ~~~~
-Hopefully you can build the project either through the simulator or on your own iPhone or iPad. If not, then fix any compilation errors. Since your implementation, including any definitions, should all be in heaplib.c, the bridging header file should be fine.
+Hopefully you can build the project either through the iOS simulator or on your own iPhone or iPad. If not, then fix any compilation errors. Since your implementation, including any definitions, should all be in heaplib.c, the bridging header file should be fine.
+
+You can now create blocks and see them visually.
+
+**To resize or free blocks:** swipe left on any of the blocks in the table.
 
 ## Install on your iPhone or iPad (the iPad experience is much better)
 You need an Apple Developer account (it's free). Select your team in the Xcode project. Now you can malloc on the go! I'm not sure why you would want to do that.
