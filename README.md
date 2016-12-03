@@ -14,7 +14,12 @@ Remove #include "heaplib.h" if it exists. Make sure have:
 Hopefully you can build the project either through the simulator or on your own iPhone or iPad. If not, then fix any compilation errors. (the iPad experience is much better).
 
 ## Install on your iPhone or iPad
-
+You need an Apple Developer account (it's free). Select your team in the Xcode project. Now you can malloc on the go! I'm not sure why you would want to do that.
 
 ## Troubleshooting
 Probably your Xcode or (God forbid) macOS installation should be updated.
+
+Keep in mind this visualizer is for looks only and assumes a good, working malloc implementation. It's not a debugger, but I'm sure you could debug using it.
+
+## Halp
+There are bugs for sure.
