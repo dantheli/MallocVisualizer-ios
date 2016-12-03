@@ -7,7 +7,7 @@ I'm not responsible for any damage done to your phone/computer if you allocate a
 
 ## To Use
 Open the .xcodeproj file. Paste in your heaplib implementation into heaplib.c under the malloc folder in the project pane.
-Remove #include "heaplib.h" if it exists. Make sure have:
+Remove #include "heaplib.h" if it exists. Make sure to have:
 ~~~~
 #include "MallocVisualizer-Bridging-Header.h"
 ~~~~
