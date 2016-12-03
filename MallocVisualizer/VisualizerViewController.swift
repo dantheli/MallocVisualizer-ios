@@ -86,7 +86,7 @@ class VisualizerViewController: UIViewController {
         sizeLabel.textColor = UIColor.gray
         sizeLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         sizeLabel.sizeToFit()
-        sizeLabel.center = CGPoint(x: heapView.center.x, y: heapView.frame.maxY + 16.0)
+        sizeLabel.center = CGPoint(x: heapView.center.x, y: heapView.frame.maxY + 24.0)
         view.addSubview(sizeLabel)
         
         UIView.animate(withDuration: 0.35, animations: {
