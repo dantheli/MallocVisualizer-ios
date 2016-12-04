@@ -35,8 +35,8 @@ class VisualizerViewController: UIViewController {
         view.addSubview(dragLabel)
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         render(heap: heap, size: heapSize, blocks: blocks)
     }
     
