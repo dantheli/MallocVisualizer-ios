@@ -37,28 +37,28 @@ class VisualizerViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        render(heap: heap, size: heapSize, blocks: blocks)
+        render(heap: heap, heapSize: heapSize, blocks: blocks, size: size)
     }
     
-    func render(heap: UnsafeMutablePointer<UInt8>, size: UInt32, blocks: [Block]) {
+    func render(heap: UnsafeMutablePointer<UInt8>, heapSize: UInt32, blocks: [Block], size: CGSize) {
         let pastViews = view.subviews.filter { $0 != addressContainer && $0 != dragLabel && ($0.isMember(of: UIView.self) || $0.isMember(of: UILabel.self)) }
         
         self.heap = heap
         self.blocks = blocks.reversed()
         self.blockViews = []
-        self.heapSize = size
+        self.heapSize = heapSize
         
         let margin: CGFloat = 44.0
-        let heapWidth: CGFloat = view.frame.width - 2 * margin
+        let heapWidth: CGFloat = size.width - 2 * margin
         let heapHeight: CGFloat = 44.0
         
-        heapView = UIView(frame: CGRect(x: margin, y: view.frame.height / 3, width: heapWidth, height: heapHeight))
+        heapView = UIView(frame: CGRect(x: margin, y: size.height / 3, width: heapWidth, height: heapHeight))
         heapView.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         heapView.alpha = 0.0
         view.addSubview(heapView)
         
         startAddressLabel.text = String(format: "%p", heap)
-        endAddressLabel.text = String(format: "%p", heap.advanced(by: Int(size)))
+        endAddressLabel.text = String(format: "%p", heap.advanced(by: Int(heapSize)))
         
         if blocks.isEmpty {
             let label = UILabel()
@@ -73,8 +73,8 @@ class VisualizerViewController: UIViewController {
         var totalSize: UInt32 = 0
         
         for block in self.blocks {
-            let distance = heapWidth * CGFloat(heap.distance(to: block.pointer)) / CGFloat(size)
-            let blockView = UIView(frame: CGRect(x: CGFloat(distance), y: 0.0, width: heapWidth * CGFloat(block.size) / CGFloat(size), height: heapHeight))
+            let distance = heapWidth * CGFloat(heap.distance(to: block.pointer)) / CGFloat(heapSize)
+            let blockView = UIView(frame: CGRect(x: CGFloat(distance), y: 0.0, width: heapWidth * CGFloat(block.size) / CGFloat(heapSize), height: heapHeight))
             blockView.backgroundColor = block.color
             heapView.addSubview(blockView)
             totalSize += block.size
@@ -82,7 +82,7 @@ class VisualizerViewController: UIViewController {
         }
         
         let sizeLabel = UILabel()
-        sizeLabel.text = "\(size) bytes (\(totalSize) allocated, \(size - totalSize) unallocated)"
+        sizeLabel.text = "\(heapSize) bytes (\(totalSize) allocated, \(heapSize - totalSize) unallocated)"
         sizeLabel.textColor = UIColor.gray
         sizeLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         sizeLabel.sizeToFit()
@@ -96,7 +96,7 @@ class VisualizerViewController: UIViewController {
             pastViews.forEach { $0.removeFromSuperview() }
         })
         
-        dragLabel.center = CGPoint(x: view.frame.width / 2, y: view.frame.height - 66.0)
+        dragLabel.center = CGPoint(x: size.width / 2, y: size.height - 66.0)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

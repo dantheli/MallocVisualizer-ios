@@ -153,7 +153,7 @@ class ViewController: UIViewController, UISplitViewControllerDelegate {
         if let visualizerViewController = navigationController?.splitViewController?.viewControllers.last as? VisualizerViewController {
             heap.withUnsafeBufferPointer { buffer in
                 let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: buffer.baseAddress!)
-                visualizerViewController.render(heap: mutablePointer, size: UInt32(heap.count), blocks: blocks)
+                visualizerViewController.render(heap: mutablePointer, heapSize: UInt32(heap.count), blocks: blocks, size: visualizerViewController.view.frame.size)
             }
         }
     }
@@ -174,7 +174,7 @@ class ViewController: UIViewController, UISplitViewControllerDelegate {
         if let visualizerViewController = segue.destination as? VisualizerViewController {
             heap.withUnsafeBufferPointer { buffer in
                 let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: buffer.baseAddress!)
-                visualizerViewController.render(heap: mutablePointer, size: UInt32(heap.count), blocks: blocks)
+                visualizerViewController.render(heap: mutablePointer, heapSize: UInt32(heap.count), blocks: blocks, size: visualizerViewController.view.frame.size)
             }
         }
     }
@@ -205,7 +205,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if let visualizerViewController = storyboard?.instantiateViewController(withIdentifier: "VisualizerViewController") as? VisualizerViewController {
                 heap.withUnsafeBufferPointer { buffer in
                     let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: buffer.baseAddress!)
-                    visualizerViewController.render(heap: mutablePointer, size: UInt32(heap.count), blocks: blocks)
+                    visualizerViewController.render(heap: mutablePointer, heapSize: UInt32(heap.count), blocks: blocks, size: visualizerViewController.view.frame.size)
                     showDetailViewController(visualizerViewController, sender: self)
                 }
             }
